@@ -110,3 +110,6 @@ fabric.properties
 
 bookstore/db.sqlite3
 .DS_Store
+
+#Compiled static assets
+static/
