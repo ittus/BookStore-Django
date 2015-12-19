@@ -37,8 +37,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'social.apps.django_app.default',
     'registration',
     'store',
+]
+
+AUTHENTICATION_BACKENDS = [
+    'social.backends.facebook.FacebookOAuth2',
+    'django.contrib.auth.backends.ModelBackend'
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -65,6 +71,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social.apps.django_app.context_processors.backends',
+                'social.apps.django_app.context_processors.login_redirect',
             ],
         },
     },
@@ -131,7 +139,11 @@ LOGIN_REDIRECT_URL = "/store/"
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_HOST_USER = "violetstd004@gmail.com"
-EMAIL_HOST_PASSWORD = "dantri.com"
+EMAIL_HOST_PASSWORD = ""
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = "books@mysterybooks.com"
+DEFAULT_FROM_EMAIL = "violetstd004@gmail.com"
+
+#Social Auth - Facebook
+SOCIAL_AUTH_FACEBOOK_KEY = '163414370680664'
+SOCIAL_AUTH_FACEBOOK_SECRET = 'eecfcefa634424b2b488a30bce1d64a2'
