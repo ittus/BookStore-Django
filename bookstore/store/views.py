@@ -2,6 +2,11 @@ from django.shortcuts import render, redirect
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
 from django.utils import timezone
+from django.core.mail import EmailMultiAlternatives
+from django.template import Context
+from django.template.loader import render_to_string
+
+import string, random
 import paypalrestsdk, stripe
 from django.http import JsonResponse
 
@@ -34,6 +39,25 @@ def book_details(request, book_id):
                     text = form.cleaned_data.get('text')
                 )
                 new_review.save()
+
+                if Review.objects.filter(user=request.user).count() < 6:
+                    subject = "Your MysteryBooks.com discount code is here!"
+                    from_email = "test@mysterybooks.com"
+                    to_email = [request.user.email]
+
+                    mail_context = Context({
+                        'username' : request.user.username,
+                        'code': ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(6)),
+                        'discount': 10
+                    })
+
+                    text_email = render_to_string('email/review_email.txt', mail_context)
+                    html_email = render_to_string('email/review_email.html', mail_context)
+
+                    msg = EmailMultiAlternatives(subject, text_email, from_email, to_email)
+                    msg.attach_alternative(html_email, 'text/html')
+                    msg.content_subtype = 'html'
+                    msg.send()
         else:
             if Review.objects.filter(user = request.user, book = context['book']).count() == 0:
                 form = ReviewForm()
