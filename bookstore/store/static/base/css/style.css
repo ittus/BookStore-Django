@@ -208,6 +208,14 @@ img.bg{
     font-weight: bold;
 }
 
+.detail_book_reivews_map{
+    width: 500px;
+    height: 300px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
 /* Cart styles */
 .cart_container{
     display: block;
