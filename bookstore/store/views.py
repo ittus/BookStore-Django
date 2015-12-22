@@ -5,6 +5,7 @@ from django.utils import timezone
 from django.core.mail import EmailMultiAlternatives
 from django.template import Context
 from django.template.loader import render_to_string
+from django.contrib.gis.geoip import GeoIP
 
 import string, random
 import paypalrestsdk, stripe
@@ -63,6 +64,10 @@ def book_details(request, book_id):
                 form = ReviewForm()
                 context['form'] = form
     context['reviews'] = book.review_set.all()
+    geo_info = GeoIP().city(request.META.get('REMOTE_ADDR'))
+    if not geo_info:
+        geo_info = GeoIP().city("72.14.207.99")
+    context['geo_info'] = geo_info
     return render(request, 'store/detail.html', context)
 
 def add_to_cart(request, book_id):

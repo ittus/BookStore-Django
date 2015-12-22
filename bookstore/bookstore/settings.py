@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.gis',
     'social.apps.django_app.default',
     'bootstrap3',
     'bootstrap_themes',
@@ -163,3 +164,5 @@ DEFAULT_FROM_EMAIL = "violetstd004@gmail.com"
 #Social Auth - Facebook
 SOCIAL_AUTH_FACEBOOK_KEY = '163414370680664'
 SOCIAL_AUTH_FACEBOOK_SECRET = ''
+
+GEO_PATH = 'geo/'
