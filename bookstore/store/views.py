@@ -10,6 +10,8 @@ from django.contrib.gis.geoip import GeoIP
 import string, random
 import paypalrestsdk, stripe
 from django.http import JsonResponse
+import logging
+logger = logging.getLogger(__name__)
 
 from .forms import ReviewForm
 from .models import Book, BookOrder, Cart, Review
@@ -18,6 +20,10 @@ def index(request):
     return render(request, 'template.html')
 
 def store(request):
+    i = 0
+    while(i < 10):
+        logger.debug("test log %d" %i)
+        i += 1
     books = Book.objects.all()
     context = {
         'books': books,

@@ -113,3 +113,5 @@ bookstore/db.sqlite3
 
 #Compiled static assets
 static/
+
+*.log.*
