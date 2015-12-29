@@ -7,7 +7,7 @@ from django.core.mail import EmailMultiAlternatives
 
 @receiver(post_save, sender=Cart)
 def adjust_stock(sender, instance, **kwargs):
-    if not instance.activate:
+    if not instance.active:
         orders = BookOrder.objects.filter(cart=instance)
         for order in orders:
             book = order.book
